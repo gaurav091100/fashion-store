@@ -1,1 +1,1 @@
-# fashion-store
+# e-commerce

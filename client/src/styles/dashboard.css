@@ -1,0 +1,6 @@
+.dashboard-item:nth-child(even) {
+  background-color: #e3ae52;
+}
+.dashboard-item:nth-child(odd) {
+  background-color: #dddbdb;
+}
