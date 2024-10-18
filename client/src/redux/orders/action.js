@@ -15,7 +15,7 @@ export const createOrder = (order) => async (dispatch) => {
       },
     };
     const { data } = await axios.post(
-      `https://fashion-store-nmi0.onrender.com/orders/new`,
+      `https://api-fashion-store.vercel.app/orders/new`,
       order,
       config
     );
@@ -42,7 +42,7 @@ export const myOrders = () => async (dispatch) => {
       type: types.MY_ORDERS_REQUEST,
     });
 
-    const { data } = await axios.get(`https://fashion-store-nmi0.onrender.com/orders/myorders`);
+    const { data } = await axios.get(`https://api-fashion-store.vercel.app/orders/myorders`);
 
     console.log(data);
 
@@ -66,7 +66,7 @@ export const getAllOrders = () => async (dispatch) => {
     dispatch({ type: types.ALL_ORDERS_REQUEST });
 
     const { data } = await axios.get(
-      "https://fashion-store-nmi0.onrender.com/orders/admin/allorders"
+      "https://api-fashion-store.vercel.app/orders/admin/allorders"
     );
 
     dispatch({ type: types.ALL_ORDERS_SUCCESS, payload: data.allOrders });
@@ -90,7 +90,7 @@ export const updateOrder = (id, order) => async (dispatch) => {
       },
     };
     const { data } = await axios.put(
-      `https://fashion-store-nmi0.onrender.com/admin/order/update/${id}`,
+      `https://api-fashion-store.vercel.app/admin/order/update/${id}`,
       order,
       config
     );
@@ -109,7 +109,7 @@ export const deleteOrder = (id) => async (dispatch) => {
   try {
     dispatch({ type: types.DELETE_ORDER_REQUEST });
     const { data } = await axios.delete(
-      `https://fashion-store-nmi0.onrender.com/orders/admin/order/delete/${id}`
+      `https://api-fashion-store.vercel.app/orders/admin/order/delete/${id}`
     );
 
     dispatch({ type: types.DELETE_ORDER_SUCCESS, payload: data.success });
@@ -127,7 +127,7 @@ export const getOrderDetails = (id) => async (dispatch) => {
     dispatch({ type: types.ORDER_DETAILS_REQUEST });
 
     const { data } = await axios.get(
-      `https://fashion-store-nmi0.onrender.com/orders/order/${id}`
+      `https://api-fashion-store.vercel.app/orders/order/${id}`
     );
     console.log({ data });
 

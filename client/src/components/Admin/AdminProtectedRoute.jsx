@@ -2,7 +2,7 @@ import React from "react";
 import { Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-const AdminProctectedRoute = ({ isAdmin, children }) => {
+const AdminProtectedRoute = ({ isAdmin, children }) => {
   const { isLoading, isAuthenticated, user } = useSelector(
     (state) => state.auth
   );
@@ -26,4 +26,4 @@ const AdminProctectedRoute = ({ isAdmin, children }) => {
   // MdOutlineAssignmentReturn;
 };
 
-export default AdminProctectedRoute;
+export default AdminProtectedRoute;

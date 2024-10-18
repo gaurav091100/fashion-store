@@ -5,7 +5,7 @@ import { store } from "../store";
 axios.defaults.withCredentials = true;
 
 export const addItemToCart = (id, quantity, img) => async (dispatch) => {
-  const { data } = await axios.get(`https://fashion-store-nmi0.onrender.com/products/${id}`);
+  const { data } = await axios.get(`https://api-fashion-store.vercel.app/products/${id}`);
   let price = Math.round(
     data.product.mrp - (data.product.mrp * data.product.offer) / 100
   );

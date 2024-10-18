@@ -22,7 +22,7 @@ import MyOrders from "./pages/MyOrders";
 import Dashboard from "./pages/Dashboard";
 import { store } from "./redux/store";
 import { loadUser } from "./redux/auth/action";
-import ProctectedRoute from "./components/ProctectedRoute";
+import ProtectedRoute from "./components/ProtectedRoute";
 import UpdatePassword from "./pages/UpdatePassword";
 import axios from "axios";
 import { Elements } from "@stripe/react-stripe-js";
@@ -30,7 +30,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import PaymentSuccess from "./components/Checkout/PaymentSuccess";
 import AllProducts from "./pages/AllProducts";
 import AddProduct from "./pages/AddProduct";
-import AdminProctectedRoute from "./components/Admin/AdminProtectedRoute";
+import AdminProtectedRoute from "./components/Admin/AdminProtectedRoute";
 import UpdateProduct from "./pages/UpdateProduct";
 import AllOrders from "./pages/AllOrders";
 import UpdateOrder from "./components/Admin/Orders/UpdateOrder";
@@ -47,7 +47,7 @@ function App() {
   console.log(stripeapikey);
   async function getStripeApiKey() {
     const { data } = await axios.get(
-      "https://fashion-store-nmi0.onrender.com/payment/stripeapikey"
+      "https://api-fashion-store.vercel.app/payment/stripeapikey"
     );
     // console.log(data);
     // console.log(user);
@@ -73,9 +73,9 @@ function App() {
           <Route
             path="password/reset-password/:token"
             element={
-              // <ProctectedRoute>
+              // <ProtectedRoute>
               <ResetPassword />
-              // </ProctectedRoute>
+              // </ProtectedRoute>
             }
           />
           <Route path="/" element={<Layout />}>
@@ -89,9 +89,9 @@ function App() {
             <Route
               path="/profile"
               element={
-                <ProctectedRoute>
+                <ProtectedRoute>
                   <Account />
-                </ProctectedRoute>
+                </ProtectedRoute>
               }
             />
             <Route path="/my-orders" element={<MyOrders />} />
@@ -99,101 +99,101 @@ function App() {
             {/* <Route
               path="/checkout"
               element={
-                // <ProctectedRoute>
+                // <ProtectedRoute>
                 <Checkout />
-                // </ProctectedRoute>
+                // </ProtectedRoute>
               }
             /> */}
             {/* {stripeapikey && ( */}
             <Route
               path="/checkout"
               element={
-                <ProctectedRoute>
+                <ProtectedRoute>
                   <Elements stripe={loadStripe(stripeapikey)}>
                     <Checkout />
                   </Elements>
-                </ProctectedRoute>
+                </ProtectedRoute>
               }
             />
             {/* )} */}
-            <Route
+              <Route
               path="/admin/dashboard"
               element={
-                <AdminProctectedRoute isAdmin={true}>
+                <AdminProtectedRoute isAdmin={true}>
                   <Dashboard />
-                </AdminProctectedRoute>
+                </AdminProtectedRoute>
               }
             />
             <Route
               path="/admin/products"
               element={
-                <ProctectedRoute>
+                <AdminProtectedRoute isAdmin={true}>
                   <AllProducts />
-                </ProctectedRoute>
+                </AdminProtectedRoute>
               }
             />
             <Route
               path="/admin/products/update/:id"
               element={
-                <ProctectedRoute>
+                <AdminProtectedRoute isAdmin={true}>
                   <UpdateProduct />
-                </ProctectedRoute>
+                </AdminProtectedRoute>
               }
             />
             <Route
               path="/admin/product/add"
               element={
-                <ProctectedRoute>
+                <AdminProtectedRoute isAdmin={true}>
                   <AddProduct />
-                </ProctectedRoute>
+                </AdminProtectedRoute>
               }
             />
             <Route
               path="/admin/orders"
               element={
-                <ProctectedRoute>
+                <AdminProtectedRoute isAdmin={true}>
                   <AllOrders />
-                </ProctectedRoute>
+                </AdminProtectedRoute>
               }
             />
             <Route
               path="/admin/orders/update/:id"
               element={
-                <ProctectedRoute>
+                <AdminProtectedRoute isAdmin={true}>
                   <UpdateOrder />
-                </ProctectedRoute>
+                </AdminProtectedRoute>
               }
             />
             <Route
               path="/admin/users"
               element={
-                <ProctectedRoute>
+                <AdminProtectedRoute isAdmin={true}>
                   <AllUsers />
-                </ProctectedRoute>
+                </AdminProtectedRoute>
               }
             />
             <Route
               path="/admin/users/update/:id"
               element={
-                <ProctectedRoute>
+                <AdminProtectedRoute isAdmin={true}>
                   <UpdateUser />
-                </ProctectedRoute>
+                </AdminProtectedRoute>
               }
             />
             <Route
               path="/admin/reviews"
               element={
-                <ProctectedRoute>
+                <AdminProtectedRoute isAdmin={true}>
                   <ProductReviews />
-                </ProctectedRoute>
+                </AdminProtectedRoute>
               }
             />
             {/* <Route
                   path="/checkout"
                   element={
-                    <ProctectedRoute>
+                    <ProtectedRoute>
                       <Checkout />
-                    </ProctectedRoute>
+                    </ProtectedRoute>
                   }
                 /> */}
           </Route>

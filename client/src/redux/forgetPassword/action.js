@@ -10,7 +10,7 @@ export const forgetPassword = (toast, email) => async (dispatch) => {
   console.log({ email });
   try {
     dispatch({ type: types.FORGET_PASSWORD_REQUEST });
-    const { data } = await axios.post("https://fashion-store-nmi0.onrender.com/users/password/forget", { email });
+    const { data } = await axios.post("https://api-fashion-store.vercel.app/users/password/forget", { email });
     console.log(data);
     dispatch({
       type: types.FORGET_PASSWORD_SUCCESS,
@@ -46,7 +46,7 @@ export const resetPassword = (toast, token, userInput) => async (dispatch) => {
   try {
     dispatch({ type: types.RESET_PASSWORD_REQUEST });
     const { data } = await axios.put(
-      `https://fashion-store-nmi0.onrender.com/users/password/reset/${token}`,
+      `https://api-fashion-store.vercel.app/users/password/reset/${token}`,
       userInput
     );
     console.log(data);

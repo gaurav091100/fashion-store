@@ -14,7 +14,7 @@ export const registerUser = (userData) => async (dispatch) => {
       },
     };
 
-    const { data } = await axios.post("https://fashion-store-nmi0.onrender.com/users/register", userData, config);
+    const { data } = await axios.post("https://api-fashion-store.vercel.app/users/register", userData, config);
     console.log(data);
 
     dispatch({
@@ -41,7 +41,7 @@ export const loginUser = (userData) => async (dispatch) => {
         "Content-Type": "application/json",
       },
     };
-    const { data } = await axios.post("https://fashion-store-nmi0.onrender.com/users/login", userData, config);
+    const { data } = await axios.post("https://api-fashion-store.vercel.app/users/login", userData, config);
     console.log(data);
     dispatch({
       type: types.LOGIN_SUCCESS,
@@ -60,7 +60,7 @@ export const loginUser = (userData) => async (dispatch) => {
 export const logoutUser = () => async (dispatch) => {
   try {
     dispatch({ type: types.LOGOUT_REQUEST });
-    const { data } = await axios.get("https://fashion-store-nmi0.onrender.com/users/logout");
+    const { data } = await axios.get("https://api-fashion-store.vercel.app/users/logout");
 
     dispatch({
       type: types.LOGOUT_SUCCESS,
@@ -79,7 +79,7 @@ export const logoutUser = () => async (dispatch) => {
 export const loadUser = () => async (dispatch) => {
   try {
     dispatch({ type: types.LOAD_USER_REQUEST });
-    const { data } = await axios.get("https://fashion-store-nmi0.onrender.com/users/user");
+    const { data } = await axios.get("https://api-fashion-store.vercel.app/users/user");
     dispatch({
       type: types.LOAD_USER_SUCCESS,
       payload: data,
