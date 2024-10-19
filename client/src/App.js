@@ -47,7 +47,7 @@ function App() {
   console.log(stripeapikey);
   async function getStripeApiKey() {
     const { data } = await axios.get(
-      "http://localhost:4500/payment/stripeapikey"
+      "https://api-fashion-store.vercel.app/payment/stripeapikey"
     );
     // console.log(data);
     // console.log(user);

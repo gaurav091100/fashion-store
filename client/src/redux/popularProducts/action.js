@@ -6,7 +6,7 @@ export const getPopularProducts = () => async (dispatch) => {
     type: types.GET_POPULAR_PRODUCTS_LOADING,
   });
   try {
-    let res = await axios.get("http://localhost:4500/products");
+    let res = await axios.get("https://api-fashion-store.vercel.app/products");
     dispatch({
       type: types.GET_POPULAR_PRODUCTS_SUCCESS,
       payload: res.data.products,

@@ -14,7 +14,7 @@ export const payment = (totalAmt) => async (dispatch) => {
       },
     };
     const { data } = await axios.post(
-      `http://localhost:4500/payment/create-checkout-session`,
+      `https://api-fashion-store.vercel.app/payment/create-checkout-session`,
       { totalAmt },
       config
     );
