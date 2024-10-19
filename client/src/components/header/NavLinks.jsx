@@ -16,24 +16,42 @@ import {
   DrawerHeader,
   useToast,
 } from "@chakra-ui/react";
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { BiCategory, BiSearch, BiUser } from "react-icons/bi";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../redux/auth/action";
 
 const NavLinks = () => {
+  const [searchText,setSearchText]=useState("");
+  const [selectedCategory,setSelectedCategory]=useState("mens");
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
+  const navigate = useNavigate();
+
   const { isAuthenticated, user } = useSelector((state) => state.auth);
 
+  
   const dispatch = useDispatch();
   const toast = useToast();
 
+  const location = useLocation();
+
+  const handleSearch = () =>{
+navigate(`/store?query=${searchText}`);
+  }
   const handleLogout = () => {
     dispatch(logoutUser(toast));
   };
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const query = params.get("query"); // Get the 'query' param from the URL
+    const category = params.get("category"); // Get the 'query' param from the URL
+    setSearchText(query || ""); // If no query is found, set it to an empty string
+    setSelectedCategory(category)
+  }, [location.search]);
 
   return (
     <Flex
@@ -60,12 +78,21 @@ const NavLinks = () => {
         w={{ base: "80%", sm: "80%", md: "50%", lg: "50%" }}
         display={{ base: "flex", sm: "flex", md: "flex", lg: "none" }}
       >
-        <Input type="search" placeholder="search product here" />
+        <Input type="search" placeholder="search product here" value={searchText} 
+          onChange={(e)=>{
+            setSearchText(e.target.value)
+            if(e.target.value.trim() ===""){
+              navigate(`/store`);
+              
+            }
+          }}
+        />
         <InputRightAddon
           _hover={{ bgColor: "#ce9739" }}
           bgColor="#e3ae52"
           color="#000"
           cursor="pointer"
+          onClick={handleSearch}
           children={<BiSearch />}
         />
       </InputGroup>
@@ -80,10 +107,17 @@ const NavLinks = () => {
           color="#a8a2a2"
           w="250px"
           fontSize="14px"
+          value={selectedCategory}
+          onChange={(e)=>{
+            navigate(`/store?query=${searchText}&category=${e.target.value}`);
+            setSelectedCategory(e.target.value)
+            
+          }}
         >
-          <option value="">SHOP CATEGORIES</option>
-          <option value="option2">MEN</option>
-          <option value="option3">WOMEN</option>
+          <option value="" disabled>SHOP CATEGORIES</option>
+          <option value="mens">MEN</option>
+          <option value="womens">WOMEN</option>
+          <option value="kids">KIDS</option>
         </Select>
       </HStack>
 

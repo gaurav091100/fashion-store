@@ -13,12 +13,12 @@ import { useNavigate } from "react-router-dom";
 const EmptyCart = () => {
   const navigate = useNavigate();
   return (
-    <Box>
+    <Box  py={10} px={6}>
       <Stack
         justify={"center"}
         align={"center"}
         my="30px"
-        position={"relative"}
+        // position={"relative"}
       >
         <Image
           src="https://semisearch.in/site-assets/images/no-cart.gif"
@@ -29,10 +29,10 @@ const EmptyCart = () => {
           Your Cart Is Empty
         </Heading>
         <Flex
-          position={"absolute"}
-          bottom="-50px"
-          left="50%"
-          transform={"translate(-50%,-50%)"}
+          // position={"absolute"}
+          // bottom="-50px"
+          // left="50%"
+          // transform={"translate(-50%,-50%)"}
           direction={"column"}
           gap="15px"
         >

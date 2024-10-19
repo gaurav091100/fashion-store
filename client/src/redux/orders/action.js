@@ -15,7 +15,7 @@ export const createOrder = (order) => async (dispatch) => {
       },
     };
     const { data } = await axios.post(
-      `https://api-fashion-store.vercel.app/orders/new`,
+      `http://localhost:4500/orders/new`,
       order,
       config
     );
@@ -42,7 +42,7 @@ export const myOrders = () => async (dispatch) => {
       type: types.MY_ORDERS_REQUEST,
     });
 
-    const { data } = await axios.get(`https://api-fashion-store.vercel.app/orders/myorders`);
+    const { data } = await axios.get(`http://localhost:4500/orders/myorders`);
 
     console.log(data);
 
@@ -66,7 +66,7 @@ export const getAllOrders = () => async (dispatch) => {
     dispatch({ type: types.ALL_ORDERS_REQUEST });
 
     const { data } = await axios.get(
-      "https://api-fashion-store.vercel.app/orders/admin/allorders"
+      "http://localhost:4500/orders/admin/allorders"
     );
 
     dispatch({ type: types.ALL_ORDERS_SUCCESS, payload: data.allOrders });
@@ -90,7 +90,7 @@ export const updateOrder = (id, order) => async (dispatch) => {
       },
     };
     const { data } = await axios.put(
-      `https://api-fashion-store.vercel.app/admin/order/update/${id}`,
+      `http://localhost:4500/admin/order/update/${id}`,
       order,
       config
     );
@@ -109,7 +109,7 @@ export const deleteOrder = (id) => async (dispatch) => {
   try {
     dispatch({ type: types.DELETE_ORDER_REQUEST });
     const { data } = await axios.delete(
-      `https://api-fashion-store.vercel.app/orders/admin/order/delete/${id}`
+      `http://localhost:4500/orders/admin/order/delete/${id}`
     );
 
     dispatch({ type: types.DELETE_ORDER_SUCCESS, payload: data.success });
@@ -127,7 +127,7 @@ export const getOrderDetails = (id) => async (dispatch) => {
     dispatch({ type: types.ORDER_DETAILS_REQUEST });
 
     const { data } = await axios.get(
-      `https://api-fashion-store.vercel.app/orders/order/${id}`
+      `http://localhost:4500/orders/order/${id}`
     );
     console.log({ data });
 

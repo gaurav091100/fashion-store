@@ -31,13 +31,16 @@ const Wishlist = () => {
           px={{ base: "0px", sm: "0px", md: "50px", lg: "100px" }}
           py="40px"
         >
-          {isLoading
-            ? wishlistItems?.map((item, id) => {
-                return (
-                  <Loader key={id} heightProps="300px" widthProps="250px" />
-                );
-              })
-            : wishlistItems?.map((item) => (
+            {isLoading
+              ? new Array(5)
+              .fill(0).map((_, id) => {
+                  return (
+                    // <GridItem key={id}>
+                    <Loader key={id} heightProps="300px" widthProps="250px" />
+                    // </GridItem>
+                  );
+                })
+              : wishlistItems?.map((item) => (
                 <WishlistCard key={item._id} item={item} />
               ))}
         </Flex>

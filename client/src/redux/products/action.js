@@ -1,40 +1,82 @@
 import * as types from "./actionTypes";
 import axios from "axios";
 
+// export const getProducts =
+//   (currentPage = 1, price = [0, 15000], category, rating = 0) =>
+//   async (dispatch) => {
+//     try {
+//       dispatch({
+//         type: types.GET_PRODUCTS_REQUEST,
+//       });
+//       // let URL = `/products?page=${currentPage}&mrp[gte]=${price[0]}&mrp[lte]=${price[1]}&rating=${rating}`;
+
+//       // if (category) {
+//       //  let URL = `/products?page=${currentPage}&mrp[gte]=${price[0]}&mrp[lte]=${price[1]}&category=${category}&rating=${rating}`;
+//       // }
+//       // let { data } = await axios.get(URL);
+//       let { data } = await axios.get("http://localhost:4500/products");
+
+//       const { products, productsCount, resultPerPage } = data;
+//       dispatch({
+//         type: types.GET_PRODUCTS_SUCCESS,
+//         payload: { products, productsCount, resultPerPage },
+//       });
+//     } catch (error) {
+//       console.log(error);
+//       dispatch({
+//         type: types.GET_PRODUCTS_ERROR,
+//         payload: error,
+//       });
+//     }
+//   };
+
 export const getProducts =
-  (currentPage = 1, price = [0, 15000], category, rating = 0) =>
+  (currentPage = 1, price = [0, 15000], category, rating = 0, searchQuery = '') =>
   async (dispatch) => {
     try {
       dispatch({
         type: types.GET_PRODUCTS_REQUEST,
       });
-      // let URL = `/products?page=${currentPage}&mrp[gte]=${price[0]}&mrp[lte]=${price[1]}&rating=${rating}`;
 
-      // if (category) {
-      //  let URL = `/products?page=${currentPage}&mrp[gte]=${price[0]}&mrp[lte]=${price[1]}&category=${category}&rating=${rating}`;
-      // }
-      // let { data } = await axios.get(URL);
-      let { data } = await axios.get("https://api-fashion-store.vercel.app/products");
+      // Construct URL dynamically based on the available filters
+      let URL = `/products?page=${currentPage}&mrp[gte]=${price[0]}&mrp[lte]=${price[1]}&rating[gte]=${rating}`;
+
+      // Append category filter if present
+      if (category) {
+        URL += `&category=${category}`;
+      }
+
+      // Append search query if present
+      if (searchQuery) {
+        URL += `&query=${searchQuery}`;
+      }
+
+      // Fetch products from the server with filters
+      let { data } = await axios.get(`http://localhost:4500${URL}`);
 
       const { products, productsCount, resultPerPage } = data;
+
+      // Dispatch success action with products data
       dispatch({
         type: types.GET_PRODUCTS_SUCCESS,
         payload: { products, productsCount, resultPerPage },
       });
     } catch (error) {
       console.log(error);
+      // Dispatch error action if there's an error
       dispatch({
         type: types.GET_PRODUCTS_ERROR,
         payload: error,
       });
     }
   };
+
 export const getSingleProduct = (id) => async (dispatch) => {
   try {
     dispatch({
       type: types.GET_SINGLE_PRODUCT_LOADING,
     });
-    let { data } = await axios.get(`https://api-fashion-store.vercel.app/products/${id}`);
+    let { data } = await axios.get(`http://localhost:4500/products/${id}`);
 
     dispatch({
       type: types.GET_SINGLE_PRODUCT_SUCCESS,
@@ -59,7 +101,7 @@ export const newReview = (reviewData) => async (dispatch) => {
     };
 
     const { data } = await axios.put(
-      `https://api-fashion-store.vercel.app/products/reviews/add`,
+      `http://localhost:4500/products/reviews/add`,
       reviewData,
       config
     );
@@ -83,7 +125,7 @@ export const getAdminProducts = () => async (dispatch) => {
   try {
     dispatch({ type: types.GET_ADMIN_PRODUCTS_REQUEST });
 
-    const { data } = await axios.get("https://api-fashion-store.vercel.app/products/admin/products");
+    const { data } = await axios.get("http://localhost:4500/products/admin/products");
 
     dispatch({
       type: types.GET_ADMIN_PRODUCTS_SUCCESS,
@@ -107,7 +149,7 @@ export const createProduct = (productData) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      "https://api-fashion-store.vercel.app/products/admin/add",
+      "http://localhost:4500/products/admin/add",
       productData,
       config
     );
@@ -135,7 +177,7 @@ export const updateProduct = (id, productData) => async (dispatch) => {
     };
 
     const { data } = await axios.patch(
-      `https://api-fashion-store.vercel.app/products/admin/update/${id}`,
+      `http://localhost:4500/products/admin/update/${id}`,
       productData,
       config
     );
@@ -158,7 +200,7 @@ export const deleteProduct = (id) => async (dispatch) => {
   try {
     dispatch({ type: types.DELETE_PRODUCT_REQUEST });
 
-    const { data } = await axios.delete(`https://api-fashion-store.vercel.app/products/admin/delete/${id}`);
+    const { data } = await axios.delete(`http://localhost:4500/products/admin/delete/${id}`);
     console.log(data);
     dispatch({
       type: types.DELETE_PRODUCT_SUCCESS,
@@ -177,7 +219,7 @@ export const getAllReviews = (id) => async (dispatch) => {
   try {
     dispatch({ type: types.ALL_REVIEW_REQUEST });
 
-    const { data } = await axios.get(`https://api-fashion-store.vercel.app/products/admin/reviews?id=${id}`);
+    const { data } = await axios.get(`http://localhost:4500/products/admin/reviews?id=${id}`);
 
     dispatch({
       type: types.ALL_REVIEW_SUCCESS,
@@ -197,7 +239,7 @@ export const deleteReviews = (reviewId, productId) => async (dispatch) => {
     dispatch({ type: types.DELETE_REVIEW_REQUEST });
 
     const { data } = await axios.delete(
-      `https://api-fashion-store.vercel.app/products/admin/reviews/delete?id=${reviewId}&productId=${productId}`
+      `http://localhost:4500/products/admin/reviews/delete?id=${reviewId}&productId=${productId}`
     );
 
     dispatch({

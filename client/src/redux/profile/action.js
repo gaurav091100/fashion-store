@@ -8,7 +8,7 @@ axios.defaults.withCredentials = true;
 export const updatePassword = (password) => async (dispatch) => {
   try {
     dispatch({ type: types.UPDATE_PASSWORD_REQUEST });
-    const { data } = await axios.put("https://api-fashion-store.vercel.app/users/user/password/update", password);
+    const { data } = await axios.put("http://localhost:4500/users/user/password/update", password);
     console.log(data);
     dispatch({
       type: types.UPDATE_PASSWORD_SUCCESS,

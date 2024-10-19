@@ -16,9 +16,9 @@ import {
   MenuList,
   MenuButton,
 } from "@chakra-ui/react";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { BiCart, BiHeart, BiSearch, BiUser } from "react-icons/bi";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 // import { getCartItems } from "../redux/cart/action";
 import { logoutUser } from "../../redux/auth/action";
@@ -26,25 +26,29 @@ import { logoutUser } from "../../redux/auth/action";
 // import MainNav from "./header/MainNav";
 import { toast } from "react-toastify";
 const MainNav = () => {
+  const [searchText,setSearchText]=useState("");
+
   const { cartItems } = useSelector((state) => state.cart);
   const { isAuthenticated, user, message, error, success } = useSelector(
     (state) => state.auth
   );
-  console.log({ isAuthenticated, user });
+
+  // console.log({ isAuthenticated, user });
   // const [query, setQuery] = useState("");
   // const [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useDispatch();
   // const location = queryParams.get("location");
-
+  const navigate = useNavigate();
   // console.log({ queryParams, term });
-
+   const location = useLocation();
   // console.log("header", user);
   const handleLogout = () => {
     dispatch(logoutUser());
   };
 
-  const handleSearch = () => {};
-
+  const handleSearch = () =>{
+    navigate(`/store?query=${searchText}`);
+      }
   // const handleSearch = () => {
   //   // console.log(query);
   //   if (query.trim()) {
@@ -63,6 +67,12 @@ const MainNav = () => {
       toast.success(message);
     }
   }, [error, success, message]);
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const query = params.get("query"); // Get the 'query' param from the URL
+    setSearchText(query || ""); // If no query is found, set it to an empty string
+  }, [location.search]);
   return (
     <Flex
       px={{ base: "10px", sm: "10px", md: "50px", lg: "100px" }}
@@ -86,6 +96,13 @@ const MainNav = () => {
         <Input
           type="text"
           placeholder="search product here"
+          value={searchText} onChange={(e)=>{
+            setSearchText(e.target.value)
+            if(e.target.value.trim() ===""){
+              navigate(`/store`);
+              
+            }
+          }}
           // onChange={(e) => setQuery(e.target.value)}
         />
         <InputRightAddon

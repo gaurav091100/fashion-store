@@ -1,5 +1,5 @@
 {
-  "proxy": "https://api-fashion-store.vercel.app",
+  "proxy": "http://localhost:4500",
   "name": "fashion-store",
   "version": "0.1.0",
   "private": true,

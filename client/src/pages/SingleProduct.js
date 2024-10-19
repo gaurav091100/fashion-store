@@ -87,12 +87,15 @@ const SingleProduct = () => {
 
   const handleAddToWishlist = () => {
     const payload = {
+      productId:id,
       image: colors?.[0]?.images?.[0],
       brand,
       title,
       mrp,
       offer,
+
     };
+    console.log(payload);
 
     dispatch(addToWishlist(payload, toast));
   };

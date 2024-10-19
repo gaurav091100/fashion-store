@@ -20,16 +20,16 @@ import {
   
     const dispatch = useDispatch();
   
-    useEffect(() => {
-      if (isRemoved) {
-        toast({
-          ...toastProps,
-          title: "Success",
-          description: "dsf",
-          status: "success",
-        });
-      }
-    }, [isRemoved,toast]);
+    // useEffect(() => {
+    //   if (isRemoved) {
+    //     toast({
+    //       ...toastProps,
+    //       title: "Success",
+    //       description: "dsf",
+    //       status: "success",
+    //     });
+    //   }
+    // }, [isRemoved,toast]);
   
     return (
       <Box

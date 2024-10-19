@@ -24,11 +24,14 @@ const PopularProducts = () => {
       </Heading>
       <Flex overflow="auto" className="hide-scrollbar" gap="20px">
         {isLoading
-          ? popularProducts.slice(0, 5).map((item) => {
-              return (
-                <Loader key={item._id} heightProps="350px" widthProps="250px" />
-              );
-            })
+              ? new Array(5)
+              .fill(0).map((_, id) => {
+                  return (
+                    // <GridItem key={id}>
+                    <Loader key={id} heightProps="350px" widthProps="250px" />
+                    // </GridItem>
+                  );
+                })
           : popularProducts.map((product) => {
               return (
                 <Box key={product._id}>

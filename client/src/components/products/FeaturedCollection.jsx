@@ -24,11 +24,14 @@ const FeaturedCollection = () => {
       </Heading>
       <Flex overflowX="auto" className="hide-scrollbar" gap="20px">
         {isLoading
-          ? featuredProducts
-              .slice(0, 5)
-              .map((item) => (
-                <Loader key={item._id} heightProps="350px" widthProps="250px" />
-              ))
+              ? new Array(5)
+              .fill(0).map((_, id) => {
+                  return (
+                    // <GridItem key={id}>
+                    <Loader key={id} heightProps="350px" widthProps="250px" />
+                    // </GridItem>
+                  );
+                })
           : featuredProducts.map((product) => {
               return (
                 <Box key={product._id}>

@@ -3,9 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../../redux/products/action";
 import SpecialProductCard from "./SpecialProductCard";
 import { Box, Grid, GridItem, Heading } from "@chakra-ui/react";
+import Loader from "../Loader";
 
 const SpecialProducts = () => {
-  const { products } = useSelector((store) => store.products);
+  const { products,isLoading } = useSelector((store) => store.products);
   const dispatch = useDispatch();
   // console.log(products);
 
@@ -29,7 +30,15 @@ const SpecialProducts = () => {
         }}
         gap="20px"
       >
-        {specialProducts &&
+        {isLoading
+              ? new Array(5)
+              .fill(0).map((_, id) => {
+                  return (
+                    <GridItem key={id}>
+                    <Loader key={id} heightProps="250px" widthProps="100%" />
+                     </GridItem>
+                  );
+                }) :
           specialProducts.map((item) => {
             return (
               <GridItem key={item._id}>
