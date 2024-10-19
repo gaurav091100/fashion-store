@@ -3,27 +3,56 @@ const ApiFeatures = require("../utils/apifeature");
 
 // GET ALL PRODUCTS
 
+// const getProductsController = async (req, res) => {
+//   try {
+//     const resultPerPage = 10;
+//     const productsCount = await ProductModel.countDocuments();
+//     const apiFeature = new ApiFeatures(ProductModel.find(), req.query)
+//       .search()
+//       .filter()
+//       .pagination(resultPerPage);
+//     // const products = await ProductModel.find();
+//     const products = await apiFeature.query;
+//     // console.log(products);
+//     return res
+//       .status(200)
+//       .json({ success: true, products, productsCount, resultPerPage });
+//   } catch (error) {
+//     console.log(error);
+//     return res
+//       .status(500)
+//       .json({ message: "Something Went Wrong!", error: error.message });
+//   }
+// };
+
 const getProductsController = async (req, res) => {
   try {
-    const resultPerPage = 100;
+    const resultPerPage = 10;
     const productsCount = await ProductModel.countDocuments();
+
+    // Create an instance of ApiFeatures to handle search, filter, and pagination
     const apiFeature = new ApiFeatures(ProductModel.find(), req.query)
       .search()
       .filter()
       .pagination(resultPerPage);
-    // const products = await ProductModel.find();
+
     const products = await apiFeature.query;
-    // console.log(products);
-    return res
-      .status(200)
-      .json({ success: true, products, productsCount, resultPerPage });
+
+    return res.status(200).json({
+      success: true,
+      products,
+      productsCount,
+      resultPerPage,
+    });
   } catch (error) {
     console.log(error);
-    return res
-      .status(500)
-      .json({ message: "Something Went Wrong!", error: error.message });
+    return res.status(500).json({
+      message: "Something Went Wrong!",
+      error: error.message,
+    });
   }
 };
+
 const getAdminProductsController = async (req, res) => {
   try {
     const products = await ProductModel.find();

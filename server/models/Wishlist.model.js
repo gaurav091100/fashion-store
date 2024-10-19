@@ -22,6 +22,14 @@ const wishlistSchema = mongoose.Schema({
     type: Number,
     required: true,
   },
+  productId: {
+    type: String,
+    required: true,
+  },
+  userId : {
+    type: String,
+    required: true,
+  }
 });
 const WishlistModel = mongoose.model("wishlist", wishlistSchema);
 
